@@ -1,2 +1,61 @@
-set(TEST_GIT_REPO "https://github.com/libcellml/docs-howto")
-set(TEST_COMMIT_HASH "dc2b774")
+#set(TEST_GIT_REPO "https://github.com/libcellml/docs-howto")
+#set(TEST_COMMIT_HASH "34edb29")
+set(TEST_GIT_REPO "/Users/hsor001/Projects/cellml/documentation/docs-howto")
+set(TEST_COMMIT_HASH "main")
+
+set(TEST_CMAKELISTS_DIR
+  resources/code/include_libcellml
+  resources/code/parse_and_print
+  resources/code/simulation_tool_dev
+  resources/code/view_model
+  resources/code/check_model
+  resources/code/annotate_model
+  resources/code/add_things
+  resources/code/solver
+)
+set(TEST_TARGETS
+  include_libcellml
+  parse_and_print
+  simulationToolDev
+  view_model
+  check_model
+  annotate_model
+  addThings
+  solve_integrate_sine
+)
+set(TEST_CMAKE_DEFS
+  "NONE"
+  "NONE"
+  "NONE"
+  "NONE"
+  "NONE"
+  "NONE"
+  "NONE"
+  "INPUT_MODEL=@TEST_ROOT@/resources/code/solver/integrate_sine.cellml"
+)
+set(PYTEST_TARGETS
+  resources/code/include_libcellml/include_libcellml.py
+  resources/code/parse_and_print/parse_and_print.py
+  resources/code/simulation_tool_dev/simulationToolDev.py
+  resources/code/view_model/view_model.py
+  resources/code/check_model/check_model.py
+  resources/code/annotate_model/annotate_model.py
+  resources/code/add_things/addThings.py
+  resources/code/solver/solveGeneratedModel.py
+)
+set(PYTEST_TARGETS_ENV
+  "PYTHONPATH=@TEST_ROOT@/resources/code/utilities/"
+)
+set(TEST_TARGETS_ARGS
+  "NOTFOUND"
+  "NOTFOUND"
+  resources/code/simulation_tool_dev/simulationExample.cellml
+  "NOTFOUND"
+  "NOTFOUND"
+  "NOTFOUND"
+  "NOTFOUND"
+  "-n|1000|-dt|0.008|-m|resources/code/solver/integrate_sine.cellml"
+)
+set(PYTEST_TARGETS_ARGS
+  ${TEST_TARGETS_ARGS}
+)
