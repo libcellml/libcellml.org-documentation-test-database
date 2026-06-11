@@ -1,5 +1,5 @@
 set(TEST_GIT_REPO "https://github.com/libcellml/docs-howto")
-set(TEST_COMMIT_HASH "34edb29")
+set(TEST_COMMIT_HASH "fac53d0")
 
 set(TEST_CMAKELISTS_DIR
   resources/code/include_libcellml
