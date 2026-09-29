@@ -22,13 +22,13 @@ set(TEST_TARGETS
   solve_integrate_sine
 )
 set(TEST_CMAKE_DEFS
-  "NONE"
-  "NONE"
-  "NONE"
-  "NONE"
-  "NONE"
-  "NONE"
-  "NONE"
+  "NOTFOUND"
+  "NOTFOUND"
+  "NOTFOUND"
+  "NOTFOUND"
+  "NOTFOUND"
+  "NOTFOUND"
+  "NOTFOUND"
   "INPUT_MODEL=@TEST_ROOT@/resources/code/solver/integrate_sine.cellml"
 )
 set(PYTEST_TARGETS
