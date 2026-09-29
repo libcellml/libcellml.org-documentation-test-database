@@ -1,0 +1,49 @@
+name: Validate
+
+# Checks that the test suite definitions in this repository are well formed: that they parse, that
+# the index-aligned lists line up, that the external references resolve, and that nothing is named
+# in a way the framework silently ignores.
+#
+# This deliberately does NOT build libCellML or any of the documentation repositories. It is a lint,
+# not a test run: it catches a malformed definition at the point it is written, rather than leaving
+# it to surface as a confusing failure in libCellML's own end-to-end CI later on.
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  validate:
+    name: Validate test database
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the test database
+        uses: actions/checkout@v4
+
+      # Checked out at the default branch so that a database is always validated against the
+      # current framework. Pin with 'ref:' if you would rather control when that changes.
+      - name: Check out the end-to-end test framework
+        uses: actions/checkout@v4
+        with:
+          repository: libcellml/end-to-end-test-framework
+          path: .e2e-framework
+
+      - name: Show CMake version
+        run: cmake --version
+
+      # CHECK_REFERENCES resolves every TEST_EXTERNAL_REFERENCE over the network and validates the
+      # downloaded definition too, which is what catches a reference whose pinned commit has gone.
+      #
+      # Add -DWARNINGS_AS_ERRORS=ON to fail on warnings as well. Worth considering for this
+      # repository: every definition here is currently warning-free, so turning it on would catch a
+      # typo'd variable name or an unpinned commit hash at review time.
+      - name: Validate test suite definitions
+        run: >
+          cmake
+          -DTEST_DB=${{ github.workspace }}
+          -DCHECK_REFERENCES=ON
+          -P .e2e-framework/validate/validate_test_db.cmake
