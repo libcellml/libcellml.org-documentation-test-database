@@ -1,5 +1,6 @@
 #set(TEST_GIT_REPO "https://github.com/libcellml/tutorials")
 set(TEST_GIT_REPO "/Users/hsor001/Projects/cellml/tutorials/")
+set(TEST_GROUP libcellml_tutorials)
 
 set(TEST_TARGETS
   annotationToolDev
@@ -28,4 +29,21 @@ set(TEST_TARGETS_ARGS
   NOTFOUND
   NOTFOUND
   "-n|7000|-dt|0.01"
+)
+set(PYTEST_TARGETS_ENV
+  "PYTHONPATH=@TEST_ROOT@/resources/code/utilities/"
+)
+set(PYTEST_TARGETS
+  resources/code/annotation_tool_dev/annotationToolDev.py
+  resources/code/import_debugger/importDebugger.py
+  resources/code/model_debugger/modelDebugger.py
+  resources/code/simulation_tool_dev/simulationToolDev.py
+  resources/code/solver/solveGeneratedModel.py
+)
+set(PYTEST_TARGETS_ARGS
+  NOTFOUND
+  NOTFOUND
+  NOTFOUND
+  NOTFOUND
+  "-n|7000|-dt|0.01|-m|@TEST_ROOT@/resources/code/solver/sine_derivative.cellml"
 )
